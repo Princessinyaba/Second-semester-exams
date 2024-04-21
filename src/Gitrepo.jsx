@@ -11,7 +11,7 @@ function Repository() {
     const fetchRepos = async () => {
       const perPage = 5; // Number of repositories per page
       const token =
-        "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";
+        "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";
       const headers = {
         Authorization: `token ${token}`,
       };
@@ -55,7 +55,7 @@ function Repository() {
 
     try {
       const token =
-        "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";
+        "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";
       const headers = {
         Authorization: `token ${token}`,
       };
