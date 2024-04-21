@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import ReactDOM from "react-dom/client";
 import { Link, Outlet } from "react-router-dom";
-
 import Search from "./pages/Search.jsx";
+
 function Repository() {
   const [repos, setRepos] = useState([]);
   const [page, setPage] = useState(1);
@@ -10,19 +9,10 @@ function Repository() {
   useEffect(() => {
     const fetchRepos = async () => {
       const perPage = 5; // Number of repositories per page
-      const token =
-        "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";
-      const headers = {
-        Authorization: `token ${token}`,
-      };
 
       try {
         const response = await fetch(
-          `https://api.github.com/user/repos?page=${page}&per_page=${perPage}`,
-          {
-            method: "GET",
-            headers: headers,
-          }
+          `https://api.github.com/user/repos?page=${page}&per_page=${perPage}`
         );
 
         if (response.ok) {
@@ -47,24 +37,16 @@ function Repository() {
     setPage((prevPage) => (prevPage > 1 ? prevPage - 1 : 1));
   };
 
-  //search code
+  // Search code
   const [repos2, setRepos2] = useState([]);
   const [loading, setLoading] = useState(false);
+
   const searchRepos = async (query) => {
     setLoading(true);
 
     try {
-      const token =
-        "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";
-      const headers = {
-        Authorization: `token ${token}`,
-      };
       const response = await fetch(
-        `https://api.github.com/user/repos?q=${query}`,
-        {
-          method: "GET",
-          headers: headers,
-        }
+        `https://api.github.com/user/repos?q=${query}`
       );
 
       if (!response.ok) {
@@ -79,26 +61,30 @@ function Repository() {
       setLoading(false);
     }
   };
+
   return (
     <div className="repo-box">
       <Outlet />
       <Search onSearchRepo={searchRepos} />
       <div className="repo-section">
         {repos.map((repo) => (
-          //   <li key={repo.id}>{repo.name}</li>
-          <div className="repo-hold">
+          <div className="repo-hold" key={repo.id}>
             <p>
               <b>
-                project id: <Link to={`/repos/${repo.name}`}>{repo.name}</Link>
+                project id:{" "}
+                <Link to={`/repos/${repo.name}`}>{repo.name}</Link>
               </b>
             </p>
             <hr />
             <p>
-              <b>project name:</b>
-              {repo.name}
+              <b>project name:</b> {repo.name}
             </p>
             <p>{repo.description || "No description"}</p>
-            <a href={repo.html_url} target="_blank" rel="noopener noreferrer">
+            <a
+              href={repo.html_url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               View on GitHub
             </a>
           </div>
@@ -114,7 +100,11 @@ function Repository() {
       <ul>
         {repos2.map((repos) => (
           <li key={repos.id}>
-            <a href={repos.html_url} target="_blank" rel="noopener noreferrer">
+            <a
+              href={repos.html_url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               {repos.full_name}
             </a>
           </li>
@@ -123,4 +113,5 @@ function Repository() {
     </div>
   );
 }
+
 export default Repository;

@@ -9,7 +9,7 @@ function Home() {
         but also the beginning of new opportunities for growth, learning, and
         exploration in the days to come.
       </p>
-
+<br />
       <h2>
         <i>PRINCESS FAVOUR INYABA</i>
       </h2>

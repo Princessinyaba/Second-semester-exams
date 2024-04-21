@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import ReactDOM from "react-dom";
 import { Link, Outlet } from "react-router-dom";
 import axios from "axios";
 import "../App.css";
@@ -68,19 +67,10 @@ function Repository() {
     // Fetch repositories
     const fetchRepos = async () => {
       const perPage = 5;
-      const token =
-        "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";
-      const headers = {
-        Authorization: `token ${token}`,
-      };
 
       try {
         const response = await fetch(
-          `https://api.github.com/user/repos?page=${page}&per_page=${perPage}`,
-          {
-            method: "GET",
-            headers: headers,
-          }
+          `https://api.github.com/users/Princessinyaba/repos?page=${page}&per_page=${perPage}`
         );
 
         if (response.ok) {
@@ -100,19 +90,10 @@ function Repository() {
   // Search repositories
   const searchRepos = async (query) => {
     setLoading(true);
-    const token =
-      "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";
-    const headers = {
-      Authorization: `token ${token}`,
-    };
 
     try {
       const response = await fetch(
-        `https://api.github.com/user/repos?q=${query}`,
-        {
-          method: "GET",
-          headers: headers,
-        }
+        `https://api.github.com/search/repositories?q=${query}`
       );
 
       if (!response.ok) {
@@ -120,7 +101,7 @@ function Repository() {
       }
 
       const data = await response.json();
-      setRepos2(data);
+      setRepos2(data.items);
     } catch (error) {
       console.error("Error searching repositories:", error);
     } finally {
@@ -131,9 +112,6 @@ function Repository() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const token =
-      "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";
-
     const data = {
       name: repoName,
       description: repoDescription,
@@ -141,16 +119,10 @@ function Repository() {
       auto_init: true,
     };
 
-    const headers = {
-      Authorization: `token ${token}`,
-      Accept: "application/vnd.github.v3+json",
-    };
-
     try {
       const response = await axios.post(
         "https://api.github.com/user/repos",
-        data,
-        { headers }
+        data
       );
 
       if (response.status === 201) {
