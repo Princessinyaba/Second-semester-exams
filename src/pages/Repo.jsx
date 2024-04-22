@@ -119,11 +119,11 @@ function Repository() {
       auto_init: true,
     };
 
-    const accessToken =
-      "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"; // Replace with your actual access token
+    const token =
+      "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";
 
     const headers = {
-      Authorization: `token ${accessToken}`,
+      Authorization: `token ${token}`,
       Accept: "application/vnd.github.v3+json",
     };
 
