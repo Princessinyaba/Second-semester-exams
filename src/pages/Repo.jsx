@@ -119,10 +119,19 @@ function Repository() {
       auto_init: true,
     };
 
+    const accessToken =
+      "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"; // Replace with your actual access token
+
+    const headers = {
+      Authorization: `token ${accessToken}`,
+      Accept: "application/vnd.github.v3+json",
+    };
+
     try {
       const response = await axios.post(
         "https://api.github.com/user/repos",
-        data
+        data,
+        { headers }
       );
 
       if (response.status === 201) {
