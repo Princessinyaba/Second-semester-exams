@@ -13,9 +13,10 @@ function Repository() {
   const [repoDescription, setRepoDescription] = useState("");
   const [responseMessage, setResponseMessage] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  
   useEffect(() => {
     // Function to open modal
+    
     const openModal = () => {
       const modal = document.getElementById("myModal");
       if (modal) {
@@ -119,10 +120,10 @@ function Repository() {
       auto_init: true,
     };
 
-    const token = process.env.REACT_APP_GITHUB_TOKEN;
+    const token= import.meta.env.VITE_REACT_APP_GITHUB_TOKEN;
 
     const headers = {
-      Authorization: token,
+      Authorization: `token ${token}`,
       Accept: "application/vnd.github.v3+json",
     };
 
@@ -153,7 +154,11 @@ function Repository() {
   const prevPage = () => {
     setPage((prevPage) => (prevPage > 1 ? prevPage - 1 : 1));
   };
-
+  useEffect(() => {
+    console.log(1);
+    console.log(import.meta.env.VITE_REACT_APP_GITHUB_TOKEN);
+    // console.log(process.env.VITE_REACT_APP_GITHUB_TOKEN);
+  }, []);
   return (
     <div className="repo-box">
       <Outlet />
@@ -175,6 +180,7 @@ function Repository() {
               View on GitHub
             </a>
           </div>
+          
         ))}
       </div>
       <button id="myBtn">create Repo</button>
@@ -229,6 +235,7 @@ function Repository() {
         </div>
       </div>
     </div>
+    
   );
 }
 
