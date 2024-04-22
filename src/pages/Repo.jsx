@@ -119,11 +119,10 @@ function Repository() {
       auto_init: true,
     };
 
-    const token =
-      "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";
+    const token = process.env.REACT_APP_GITHUB_TOKEN;
 
     const headers = {
-      Authorization: `token ${token}`,
+      Authorization: token,
       Accept: "application/vnd.github.v3+json",
     };
 
